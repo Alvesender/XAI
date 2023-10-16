@@ -158,3 +158,20 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+
+# Project specific ignores
+input/preprocessed/Bike/
+input/preprocessed/Car/
+
+input/raw/Bike/
+input/raw/Car/
+
+dash_src/assets/images/grad_cam/Bike/
+dash_src/assets/images/grad_cam/Car/
+dash_src/assets/images/preprocessed/Bike/
+dash_src/assets/images/preprocessed/Car/
+dash_src/assets/images/raw/Bike/
+dash_src/assets/images/raw/Car/
+dash_src/assets/images/shap/Bike/
+dash_src/assets/images/shap/Car/
