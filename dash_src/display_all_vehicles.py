@@ -12,8 +12,8 @@ def display_vehicles(vehicle :str)-> html.Div:
     # images = [Image.open(f"input/preprocessed/{vehicle}/{file}") for file in os.listdir(f"input/preprocessed/{vehicle}")[:100]]
     # image_divs = [dbc.Col([html.Img(src=image, alt=f'{vehicle}/{file}')]) for image in images]
     pred_data = {}
-    pred_data['Bike'] = pd.read_csv('dash_src/assets/data/Bike_pred.csv')
-    pred_data['Car'] = pd.read_csv('dash_src/assets/data/Car_pred.csv')
+    pred_data['Bike'] = pd.read_csv(r'dash_src/assets/data/Bike_pred.csv')
+    pred_data['Car'] = pd.read_csv(r'dash_src/assets/data/Car_pred.csv')
     
     image_divs =[]
     for i in range(number_of_images):
@@ -41,7 +41,9 @@ def display_vehicles(vehicle :str)-> html.Div:
     return dbc.Col(
         dbc.Card(
             children=[
-                html.H1(vehicle),
+                html.H1(
+                    children=[vehicle], 
+                    style={'text-align': 'center'}),
                 dbc.Row(
                     children=image_divs
                 ),

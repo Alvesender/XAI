@@ -6,7 +6,8 @@ import numpy as np
 
 import sys
 sys.path.append('src')
-from shap_explainer import shap_Explainer
+# print(sys.path)
+from shap_explainer import shap_explainer
 from grad_cam_explainer import grad_cam
 
 def show_explainer(vehicle, file_name):
@@ -18,10 +19,22 @@ def show_explainer(vehicle, file_name):
                 children=[
                     dbc.Col(
                         children = [
-                            html.H1(vehicle),
-                            html.Img(src=raw_image),
-                            html.Img(src=preprocessed_image)
+                            html.Div(
+                                children=[
+                                    html.H1(vehicle, style={'text-align': 'center'}),
+                                    html.Div([
+                                        html.H3(f'Original Image', style={'text-align': 'center'}),
+                                        html.Img(src=raw_image, style={'margin-left': 'auto', 'margin-right': 'auto', 'padding': '5px', 'display': 'block'}),
+                                    ]),
+                                    html.Div([
+                                        html.H3(f'Preprocessed Image', style={'text-align': 'center'}),
+                                        html.Img(src=preprocessed_image, style={'margin-left': 'auto', 'margin-right': 'auto', 'padding': '5px', 'display': 'block'})
+                                    ]),
+                                ],
+                                
+                            )
                         ]
+                        
                     ),
                     dbc.Col(
                         children = [
@@ -42,20 +55,32 @@ def create_explanation(vehicle, file_name):
     image = Image.open(file_path)
     image = np.array(image)
     image = np.expand_dims(image, axis=0)
-    shap_image = shap_Explainer(image, ['Bike', 'Car'], vehicle, file_name)
+    shap_image = shap_explainer(image, ['Bike', 'Car'], vehicle, file_name)
     grad_cam_image = grad_cam(image, vehicle, file_name)
     return html.Div(
         children=[
-            html.H1('Explanation'),
-            html.H2('SHAP'),
-            html.Img(src=shap_image,
-                     style={'height': '300px',
-                            'width': '300px',
-                            'margin': '5px'}),
-            html.H2('Grad-CAM'),
-            html.Img(src=grad_cam_image,
-                     style={'height': '300px',
-                            'width': '300px',
-                            'margin': '5px'}),
+            html.Div(
+                children= [
+                html.H1('Explanation', style={'text-align': 'center'}),
+                html.H2('SHAP', style={'text-align': 'center'}),
+                html.Img(src=shap_image,
+                        style={'height': '300px',
+                                'width': '300px',
+                                'margin': '5px',
+                                'margin-left': 'auto', 'margin-right': 'auto', 'display': 'block'}),
+                ],
+                style={'align-items': 'left'}
+                ),
+            html.Div(
+                children=[
+                    html.H2('Grad-CAM', style={'text-align': 'center'}),
+                    html.Img(src=grad_cam_image,
+                    style={'height': '300px',
+                            'width': '250px',
+                            'margin': '5px',
+                            'margin-left': 'auto', 'margin-right': 'auto', 'display': 'block'}),
+                ],
+                style={'align-items': 'left'}
+            )
         ]
     )

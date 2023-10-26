@@ -6,7 +6,7 @@ import tensorflow as tf
 from PIL import Image
 
 
-def shap_Explainer(x, class_names, vehicle, file_name):#, save_path):
+def shap_explainer(x, class_names, vehicle, file_name):#, save_path):
     shap_path = r'dash_src/assets/images/shap/' + vehicle + '/' + file_name
     if os.path.exists(shap_path):
         return Image.open(shap_path)
